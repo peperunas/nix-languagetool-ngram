@@ -50,5 +50,7 @@ let
     }
   ];
   langs = testedLangs ++ untestedLangs;
-  ngrams = pkgs.lib.foldr (r: l: l // { "ngrams-${r.lang}" = pkgs.callPackage ./ngram-template.nix r; } ) {} langs;
-in ngrams
+  ngrams = pkgs.lib.foldr (r: l: l // { "ngrams-${r.lang}" = pkgs.callPackage ./ngram-template.nix r; }) { } langs;
+in ngrams // {
+  fasttext = pkgs.callPackage ./fasttext.nix { };
+}
